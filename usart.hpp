@@ -75,7 +75,7 @@ public:
 
     /**
      * Send sends a single char.
-     * \param data The char to send.
+     * \param c The char to send.
      */
     void send(char c){
         while(!(UCSR0A & (1<<UDRE0)));

@@ -4,6 +4,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <string.h>
+#include <stdlib.h>
 
 /**
  * USART allows the communication with external devices via serial communication.
@@ -77,7 +78,7 @@ public:
      * Send sends a single char.
      * \param c The char to send.
      */
-    void send(char c){
+    void send(char c) {
         while(!(UCSR0A & (1<<UDRE0)));
         UDR0 = c;
     }
@@ -90,6 +91,26 @@ public:
         while (*data) {
             send(*data++);
         }
+    }
+
+    /**
+     * Sends the string representative of an integer as decimal.
+     * \param value The integer.
+     */
+    void sendAsDecChar(const uint16_t value) {
+        char buf[6];
+        itoa(value, buf, 10);
+        send(buf);
+    }
+
+    /**
+     * Sends the string representative of an integer as hexadecimal.
+     * \param value The integer.
+     */
+    void sendAsHexChar(const uint16_t value) {
+        char buf[6];
+        itoa(value, buf, 16);
+        send(buf);
     }
 
 };

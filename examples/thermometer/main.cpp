@@ -27,9 +27,9 @@ int main() {
 		auto result = DHT22::get(temperature, humidity);
 		
 		// send via USART
-		u.send("Result: "); u.sendAsDecChar(result); u.send('\n');
-		u.send("Tmp: "); u.sendAsDecChar(temperature); u.send('\n');
-		u.send("Hum: "); u.sendAsDecChar(humidity); u.send('\n');
+		u.sendAsDecChar(result); u.send(',');
+		u.sendAsDecChar(temperature); u.send(',');
+		u.sendAsDecChar(humidity); u.send(';');
 
 		// print on OLED
 		oled.gotoxy(6, 5);

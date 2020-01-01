@@ -7,8 +7,8 @@
  * ATmega328p.
  */
 enum ServoNumber {
-    SERVOA,
-    SERVOB,
+    SERVO1A,
+    SERVO1B,
 };
 
 /*
@@ -35,11 +35,11 @@ public:
 
         // activate corresponding output
         switch (m_number) {
-            case SERVOA:
+            case SERVO1A:
 	            TCCR1A |= (1<<COM1A1);
                 DDRB   |= (1<<PINB1);
                 break;
-            case SERVOB:
+            case SERVO1B:
                 TCCR1A |= (1<<COM1B1);
                 DDRB   |= (1<<PINB2);
                 break;
@@ -65,10 +65,10 @@ public:
 
         m_value = 3760.f * value / 1000 + 1040;       // 4800-1040=3760
         switch (m_number) {
-            case SERVOA:
+            case SERVO1A:
 	            OCR1A = m_value;
                 break;
-            case SERVOB:
+            case SERVO1B:
                 OCR1B = m_value;
                 break;
         }

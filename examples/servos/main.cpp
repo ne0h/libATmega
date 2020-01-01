@@ -2,8 +2,8 @@
 #include <servo.hpp>
 
 int main() {
-    Servo s1(SERVOA);
-    Servo s2(SERVOB);
+    Servo s1(SERVO1A);
+    Servo s2(SERVO1B);
 
     while(1) {
         s1.setValue(0);

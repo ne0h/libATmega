@@ -1,4 +1,6 @@
-PROGRAMMER = "/dev/cu.wchusbserial1420"
+PROGRAMMER = "/dev/cu.usbserial-A906R2H4"
+
+default: clean build upload
 
 .PHONY: build
 build:
@@ -16,6 +18,3 @@ upload:
 .PHONY: clean
 clean:
 	rm usart_async.* main.o main.d || true
-
-.PHONY: all
-all: clean build upload

@@ -11,7 +11,11 @@ static volatile uint8_t state = 0;
 static AsyncUSART u;
 
 // Interrupt when a symbole is received
+#if defined(__AVR_ATmega328P__)
 ISR(USART_RX_vect) {
+#elif defined(__AVR_ATmega2560__)
+ISR(USART0_RX_vect) {
+#endif
     // Send received symbole back
     u.send(UDR0);
 

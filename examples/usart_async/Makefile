@@ -1,5 +1,5 @@
-PROGRAMMER = "/dev/cu.usbserial-A906R2H4"
-TARGET = "atmega2560"
+PROGRAMMER=/dev/cu.wchusbserial1410
+TARGET="atmega2560"
 
 default: clean build upload
 
@@ -29,7 +29,7 @@ upload:
 ifeq (${TARGET}, "atmega328p")
 	avrdude -pm328p -carduino -P${PROGRAMMER} -b57600 -Uflash:w:usart_async.hex:a
 else ifeq (${TARGET}, "atmega2560")
-	avrdude -pm2560 -carduino -P${PROGRAMMER} -b57600 -Uflash:w:usart_async.hex:a
+	avrdude -pm2560 -cwiring -P${PROGRAMMER} -Uflash:w:usart_async.hex:a -D
 endif
 
 .PHONY: clean

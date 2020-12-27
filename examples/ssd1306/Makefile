@@ -1,4 +1,4 @@
-PROGRAMMER = "/dev/cu.wchusbserial1420"
+PROGRAMMER = "/dev/cu.usbserial-14310"
 
 default: clean build upload
 

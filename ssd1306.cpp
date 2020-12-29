@@ -159,7 +159,7 @@ void SSD1306::writeStr(char *str)
     }
 }
 
-void SSD1306::printf(const char *Buffer, ...)
+void SSD1306::writeP(const char *Buffer, ...)
 {
     va_list ap;
     va_start(ap, Buffer);

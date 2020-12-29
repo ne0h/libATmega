@@ -28,5 +28,7 @@ public:
     void fontSize(const uint8_t byte);
     void gotoxy(const uint8_t x, const uint8_t y);
 
-    void printf(const char *Buffer, ...);
+    void writeP(const char *Buffer, ...);
+
+    #define printf(format, args...) writeP(PSTR(format) , ## args)
 };

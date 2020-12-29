@@ -76,10 +76,10 @@ void SSD1306::clearScreen()
 {
     gotoxy(0, 0);
     m_i2c.start(ADDR);
-    m_i2c.byte(DATA);
+    m_i2c.writeByte(DATA);
     for (uint16_t i = 0; i < 128 << 4; i++)
     {
-        m_i2c.byte(0);
+        m_i2c.writeByte(0);
     }
     m_i2c.stop();
     gotoxy(0, 0);

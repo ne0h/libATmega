@@ -14,13 +14,16 @@ class I2C
 public:
     I2C();
 
-    uint8_t start(const uint8_t addr);
+    int8_t start(const uint8_t addr);
 
-    uint8_t byte(uint8_t byte);
+    int8_t writeByte(uint8_t byte);
+
+    int8_t readByte(uint8_t *byte, const bool ack);
 
     void stop(void);
 
-    int8_t read(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uint16_t len);
+    int8_t read(uint8_t dev_id, uint8_t addr, uint8_t *data, uint16_t len);
 
-    int8_t write(uint8_t dev_id, const uint8_t reg_addr, const uint8_t *reg_data, const uint16_t len);
+    int8_t write(uint8_t dev_id, const uint8_t addr, const uint8_t *data, const uint16_t len);
+
 };

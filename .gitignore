@@ -7,4 +7,5 @@
 *.o
 
 html/
+latex/
 .vscode/

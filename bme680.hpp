@@ -14,7 +14,9 @@ private:
     uint16_t m_meas_period;
 
 public:
-    BME680();
+    BME680(bool enable_gas_sensor);
 
     int8_t get(struct bme680_field_data *data);
+
+    uint16_t get_meas_periode();
 };

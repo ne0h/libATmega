@@ -11,7 +11,7 @@ static void   delay_ms (uint32_t delay);
 static SPI spi;
 
 // init is taken from https://github.com/BoschSensortec/BME680_driver#example-for-spi-4-wire
-BME680::BME680() {
+BME680::BME680(bool enable_gas_sensor) {
     // Set CS pin
     *CS_DDR |= (1 << CS_PIN);
 
@@ -23,7 +23,7 @@ BME680::BME680() {
     /* amb_temp can be set to 25 prior to configuring the gas sensor 
      * or by performing a few temperature readings without operating the gas sensor.
      */
-    m_gas_sensor.amb_temp = 25;
+    //m_gas_sensor.amb_temp = 25;
     bme680_init(&m_gas_sensor);
 
     m_gas_sensor.tph_sett.os_hum = BME680_OS_2X;
@@ -32,10 +32,10 @@ BME680::BME680() {
     m_gas_sensor.tph_sett.filter = BME680_FILTER_SIZE_3;
 
     /* Set the remaining gas sensor settings and link the heating profile */
-    m_gas_sensor.gas_sett.run_gas = BME680_ENABLE_GAS_MEAS;
+    m_gas_sensor.gas_sett.run_gas = BME680_ENABLE_GAS_MEAS ? enable_gas_sensor : BME680_DISABLE_GAS_MEAS;
     /* Create a ramp heat waveform in 3 steps */
-    m_gas_sensor.gas_sett.heatr_temp = 0; /* degree Celsius */
-    m_gas_sensor.gas_sett.heatr_dur = 0;  /* milliseconds */
+    m_gas_sensor.gas_sett.heatr_temp = 320 ? enable_gas_sensor : 0; /* degree Celsius */
+    m_gas_sensor.gas_sett.heatr_dur  = 240 ? enable_gas_sensor : 0; /* milliseconds */
 
     /* Select the power mode */
     /* Must be set before writing the sensor configuration */
@@ -53,6 +53,12 @@ BME680::BME680() {
     bme680_get_profile_dur(&m_meas_period, &m_gas_sensor);
 }
 
+uint16_t BME680::get_meas_periode() {
+    uint16_t meas_period;
+    bme680_get_profile_dur(&meas_period, &m_gas_sensor);
+    return meas_period;
+}
+
 int8_t BME680::get(struct bme680_field_data *data) {
     memset(data, 0, sizeof(struct bme680_field_data));
 
@@ -65,6 +71,7 @@ int8_t BME680::get(struct bme680_field_data *data) {
     // trigger the next measurement
     bme680_set_sensor_mode(&m_gas_sensor);
 
+    data->status &= BME680_SPI_WR_MSK;
     return res;
 }
 

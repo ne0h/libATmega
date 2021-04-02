@@ -1,8 +1,12 @@
 #include "bme680.hpp"
 
-static volatile uint8_t *CS_DDR = &DDRB;
+static volatile uint8_t *CS_DDR  = &DDRB;
 static volatile uint8_t *CS_PORT = &PORTB;
-static const uint8_t CS_PIN = PB2;
+#if defined(__AVR_ATmega328P__)
+static const    uint8_t  CS_PIN  = PB2;
+#elif defined(__AVR_ATmega2560__)
+static const    uint8_t  CS_PIN  = PB0;
+#endif
 
 static int8_t spi_read (uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len);
 static int8_t spi_write(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len);

@@ -3,9 +3,15 @@
 #include <avr/io.h>
 
 #define SPI_DDR     DDRB
+#if defined(__AVR_ATmega328P__)
 #define SPI_SCK     PB5
 #define SPI_MISO    PB4
 #define SPI_MOSI    PB3
+#elif defined(__AVR_ATmega2560__)
+#define SPI_SCK     PB1
+#define SPI_MISO    PB3
+#define SPI_MOSI    PB2
+#endif
 
 /**
  * SPI implements an interface to the SPI bus.

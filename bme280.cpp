@@ -2,7 +2,11 @@
 
 static volatile uint8_t *CS_DDR  = &DDRB;
 static volatile uint8_t *CS_PORT = &PORTB;
+#if defined(__AVR_ATmega328P__)
 static const    uint8_t  CS_PIN  = PB2;
+#elif defined(__AVR_ATmega2560__)
+static const    uint8_t  CS_PIN  = PB0;
+#endif
 
 static void   delay_us (uint32_t period, void *intf_ptr);
 static int8_t spi_read (uint8_t reg_addr, uint8_t *data, uint32_t len, void *intf_ptr);

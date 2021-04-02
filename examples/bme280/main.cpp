@@ -14,9 +14,16 @@ int main() {
     while (1)
     {
         sensor.get(&data);
-        u.sendDouble(data.temperature);      u.send(" °C\n");
-        u.sendDouble(data.humidity);         u.send(" %\n");
-        u.sendDouble(data.pressure / 100.0); u.send(" hPa\n");
+        char buf[128];
+        snprintf(
+            buf,
+            128,
+            "{\n\t\"temperature\": %.2f,\n\t\"pressure\": %.0f,\n\t\"humidity\": %.0f\n}\n",
+            data.temperature,
+            data.pressure / 100,
+            data.humidity
+        );
+        u.send(buf);
         _delay_ms(10000);
     }
 

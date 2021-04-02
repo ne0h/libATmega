@@ -22,8 +22,8 @@ public:
 
     void stop(void);
 
-    int8_t read(uint8_t dev_id, uint8_t addr, uint8_t *data, uint16_t len);
+    int8_t read(uint8_t addr, uint8_t *data, uint16_t len);
 
-    int8_t write(uint8_t dev_id, const uint8_t addr, const uint8_t *data, const uint16_t len);
+    int8_t write(const uint8_t addr, const uint8_t *data, const uint16_t len);
 
 };

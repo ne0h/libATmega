@@ -68,7 +68,7 @@ const uint8_t cmd_init[] = {
 
 SSD1306::SSD1306()
 {
-    m_i2c.write(0, ADDR, cmd_init, sizeof(cmd_init));
+    m_i2c.write(ADDR, cmd_init, sizeof(cmd_init));
     clearScreen();
 }
 
@@ -96,7 +96,7 @@ void SSD1306::gotoxy(const uint8_t x, const uint8_t y)
         (uint8_t)(x * 8),
         SET_DISPLAY_START_LINE | 0x3F
     };
-    m_i2c.write(0, ADDR, cmd, sizeof(cmd));
+    m_i2c.write(ADDR, cmd, sizeof(cmd));
 }
 
 void SSD1306::fontSize(const uint8_t byte)
@@ -121,7 +121,7 @@ void SSD1306::writeChar(const char c)
             cmd[i*2+1] = tmp;
             cmd[i*2+2] = tmp;
         }
-        m_i2c.write(0, ADDR, cmd, len);
+        m_i2c.write(ADDR, cmd, len);
 
         gotoxy(m_x, m_y + 1);
         for (uint8_t i = 0; i < 8; i++)
@@ -132,7 +132,7 @@ void SSD1306::writeChar(const char c)
             cmd[i*2] = tmp;
             cmd[i*2+1] = tmp;
         }
-        m_i2c.write(0, ADDR, cmd, len);
+        m_i2c.write(ADDR, cmd, len);
         m_x += 2;
         m_y -= 1;
     }
@@ -146,7 +146,7 @@ void SSD1306::writeChar(const char c)
         {
             cmd[i+1] = pgm_read_byte(&font[(unsigned char)c][i]);
         }
-        m_i2c.write(0, ADDR, cmd, len);
+        m_i2c.write(ADDR, cmd, len);
         m_x += 1;
     }
 }

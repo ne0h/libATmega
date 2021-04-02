@@ -1,6 +1,6 @@
-# libATmega328
+# libATmega
 
-Collection of standard libraries for ATmega328p.
+Collection of standard libraries for `ATmega328p`. Aims to also support `ATmega2560`.
 
 Build the docs by running
 

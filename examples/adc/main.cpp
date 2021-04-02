@@ -4,11 +4,14 @@
 #include <usart.hpp>
 #include <adc.hpp>
 
-const float ADC_FACTOR = 5.f / 1023.f * 1000;
+const float ADC_FACTOR = 4.7 / 1023.f * 1000;
 
 int main() {
 	USART u;
 	AnalogDigitalConverter adc(ADCDIVISIONFACTOR_128);
+
+	DDRD |= (1<<PD2);
+	PORTD |= (1<<PD2);
 
 	while (1) {
 		const uint16_t value = adc.read(0);

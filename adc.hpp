@@ -16,7 +16,7 @@ class AnalogDigitalConverter {
 
 public:
     AnalogDigitalConverter(const ADCDivisionFactor df) {
-        ADMUX  |= (1<<REFS0);
+        ADMUX  |= (1<<REFS1) | (1<<REFS0);
         switch (df) {
         case ADCDIVISIONFACTOR_2:
             ADCSRA |= (1<<ADPS0);

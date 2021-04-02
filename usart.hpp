@@ -5,6 +5,7 @@
 #include <util/delay.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * USART allows the communication with external devices via serial communication.
@@ -87,7 +88,7 @@ public:
      * Send sends a string (char array).
      * \param data The string to send.
      */
-    void send(char* data){
+    void send(char* data) {
         while (*data) {
             send(*data++);
         }
@@ -97,8 +98,8 @@ public:
      * Sends the string representative of an integer as decimal.
      * \param value The integer.
      */
-    void sendAsDecChar(const uint16_t value) {
-        char buf[6];
+    void sendAsDecChar(const uint32_t value) {
+        char buf[16];
         itoa(value, buf, 10);
         send(buf);
     }
@@ -107,9 +108,19 @@ public:
      * Sends the string representative of an integer as hexadecimal.
      * \param value The integer.
      */
-    void sendAsHexChar(const uint16_t value) {
-        char buf[6];
+    void sendAsHexChar(const uint32_t value) {
+        char buf[16];
         itoa(value, buf, 16);
+        send(buf);
+    }
+
+    /**
+     * Sends the string representative of a double as decimal.
+     * \param value The double.
+     */
+    void sendDouble(const double value) {
+        char buf[16];
+        snprintf(buf, 16, "%f", value);
         send(buf);
     }
 
